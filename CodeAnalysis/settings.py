@@ -17,6 +17,12 @@ from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 import os 
 import environ
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
 
 env=environ.Env()
 environ.Env.read_env()
@@ -25,6 +31,7 @@ environ.Env.read_env()
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY =env("DJANGO_SECRET_KEY")
+OPENROUTER_API_KEY = env("OPENROUTER_API_KEY")
 
 LOGIN_REDIRECT_URL = '/accounts/dashboard/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
@@ -132,6 +139,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
